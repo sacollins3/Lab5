@@ -32,6 +32,11 @@ public class MainActivity2 extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
+        else if (item.getItemId() == R.id.addnote){
+            Intent intent = new Intent(this, MainActivity3.class);
+            startActivity(intent);
+            return true;
+        }
         return true;
     }
 
