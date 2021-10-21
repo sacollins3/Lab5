@@ -2,7 +2,9 @@ package com.example.lab5;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,11 +22,15 @@ public class MainActivity2 extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
-            case R.id.logout:
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                break;
+        super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.logout) {
+            Intent intent = new Intent(this, MainActivity.class);
+            SharedPreferences sharedPreferences = getSharedPreferences("com.example.lab5", Context.MODE_PRIVATE);
+            //Log.i("logging out", "logging out");
+            sharedPreferences.edit().remove(MainActivity.usernameKey).apply();
+            //Log.i("usernameKey afterlogout", sharedPreferences.getString(MainActivity.usernameKey, ""));
+            startActivity(intent);
+            return true;
         }
         return true;
     }
@@ -32,12 +38,14 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        TextView welcomeText = (TextView) findViewById(R.id.textView);
-        Intent intent = getIntent();
-        String str = intent.getStringExtra("username");
-        //welcomeText.setText("Welcome " + str); causing huge issues, null pointer exception?
         setContentView(R.layout.activity_main2);
+        TextView textView = (TextView) findViewById(R.id.textView);
+        Intent intent = getIntent();
+        //String str = intent.getStringExtra("username");
+        //welcomeText.setText("Welcome " + str); causing huge issues, null pointer exception?
+        SharedPreferences sharedPreferences = getSharedPreferences("com.example.lab5", Context.MODE_PRIVATE);
+        textView.setText("Welcome " + sharedPreferences.getString(MainActivity.usernameKey, ""));
+
 
     }
 }

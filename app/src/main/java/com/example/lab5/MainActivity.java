@@ -12,6 +12,8 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String usernameKey;
+
     public void login(View view) {
 
         EditText usernameText = (EditText) findViewById(R.id.username);
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences.edit().putString("username", userName).apply();
 
         if (userName.length() > 0 && passText.length() > 0){
-            Log.i("username",userName);
+            //Log.i("username",userName);
             goToActivity2(userName);
         }
 
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     public void goToActivity2(String username){
         Intent intent = new Intent(this, MainActivity2.class);
         intent.putExtra("username", username);
-        Log.i("username", username);
+        //Log.i("username", username);
         startActivity(intent);
     }
 
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String usernameKey = "";
+        usernameKey = "username";
 
         SharedPreferences sharedPreferences = getSharedPreferences("com.example.lab5", Context.MODE_PRIVATE);
 
