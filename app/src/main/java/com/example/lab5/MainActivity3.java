@@ -31,8 +31,7 @@ public class MainActivity3 extends AppCompatActivity {
         //get value of noteid from intent and initiate noteid
         noteid = intent.getIntExtra("noteid", -1);
 
-        //if no value present for noteid
-
+        //if value present for noteid
         if (noteid != -1){
             //display content by retreiving notes arraylist
             Note note = MainActivity2.notes.get(noteid);
@@ -63,15 +62,15 @@ public class MainActivity3 extends AppCompatActivity {
 
         if (noteid == -1) { //add new note
             title = "NOTE_" + (MainActivity2.notes.size() + 1);
-            Log.i("username in add", username);
+            //Log.i("username in add", username);
             dbHelper.saveNotes(username, title, content, date);
 
 
         } else { //update note
             title = "NOTE_" + (noteid + 1);
-            Log.i("username in update", username);
+            //Log.i("username in update", username);
             dbHelper.updateNote(title, date, content, username);
-
+            //Log.i("in else", "updated!");
 
         }
         sqLiteDatabase.close();
