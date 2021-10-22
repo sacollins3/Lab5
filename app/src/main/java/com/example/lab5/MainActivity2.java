@@ -35,7 +35,7 @@ public class MainActivity2 extends AppCompatActivity {
         if (item.getItemId() == R.id.logout) {
             Intent intent = new Intent(this, MainActivity.class);
             SharedPreferences sharedPreferences = getSharedPreferences("com.example.lab5", Context.MODE_PRIVATE);
-            //Log.i("logging out", "logging out");
+            Log.i("logging out", "logging out");
             sharedPreferences.edit().remove(MainActivity.usernameKey).apply();
             //Log.i("usernameKey afterlogout", sharedPreferences.getString(MainActivity.usernameKey, ""));
             startActivity(intent);
@@ -55,16 +55,17 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         //display welcome message
         TextView textView = (TextView) findViewById(R.id.textView);
-        Intent intent = getIntent();
+
         SharedPreferences sharedPreferences = getSharedPreferences("com.example.lab5", Context.MODE_PRIVATE);
-        textView.setText("Welcome " + sharedPreferences.getString(MainActivity.usernameKey, ""));
+        String username = sharedPreferences.getString(MainActivity.usernameKey, "");
+        textView.setText("Welcome " + username);
 
         //get SQLiteDatabase instance
         Context context = getApplicationContext();
         SQLiteDatabase sqLiteDatabase = context.openOrCreateDatabase("notes", Context.MODE_PRIVATE, null);
         //initiate "notes" class var using readNotes method in DBHelper, use SharedPref username
         DBHelper dbHelper = new DBHelper(sqLiteDatabase);
-        notes = dbHelper.readNotes(sharedPreferences.getString(MainActivity.usernameKey, ""));
+        notes = dbHelper.readNotes(username);
         //create arraylist<string> object by iterating over notes object
         ArrayList<String> displayNotes = new ArrayList<>();
         for (Note note : notes){

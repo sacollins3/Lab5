@@ -2,6 +2,7 @@ package com.example.lab5;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,8 @@ public class DBHelper {
     }
 
     public void createTable(){
-        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS notes" + "(id INTEGER PRIMARY KEY, username TEXT, date TEXT, title TEXT, content TEXT, src TEXT)");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS notes"
+                + "(id INTEGER PRIMARY KEY, username TEXT, date TEXT, title TEXT, content TEXT, src TEXT)");
 
     }
 
@@ -38,6 +40,7 @@ public class DBHelper {
             Note note = new Note(date, username, title, content);
             notesList.add(note);
             c.moveToNext();
+            Log.i("cursor", String.valueOf(c));
         }
         c.close();
         sqLiteDatabase.close();
